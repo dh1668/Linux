@@ -1,0 +1,64 @@
+# Linux 기본 command
+
+1. date
+date --date '3 days ago'
+date -d '2 months ago'
+date --help	/ more --help	// option 보고 check
+* -d , --d	
+
+2. timedatectl
+
+3. history
+
+4. man	// manual page
+	man man 1~8 까지는 숙지해야
+   man -f list (f option) : 간략히 요약	// == what is
+	(ex)
+	man ls > (1)
+	man fdisk > (8) : super user
+	man passwd - man 5 passwd
+
+sudo -i : super user 권한 ~#		(general user prompt : ~$)
+
+**  command -o subcommand	(ex: git + subcommand)
+**  command -o <file>
+
+5. logname
+   whoami
+   id
+	// linux: multi user system + text env > 접속한 user check
+	(ex)
+	su -user01
+		// whoami > user01
+		// logname > uzzin
+6. users
+   who
+   w
+	// 접속자 info check
+		// users
+		// who > 0/: 직접 pts/1: 가상환경 ,tty2 : 터미널
+		// who -q(q option) : 몇명인지 -w(w option)  -h : header -a: 자세히 -d: system 언제 booting
+		// w > who보다 자세히
+		// jpcpu : 접속후 terminal cpu 사용시간 , pcpu : program 실행하는데 cpu 사용량
+
+
+7. cal	: calander
+8. clear	: terminal 청소싹~	//  ctrl ^ l
+
+9. uname		//-a : system info (linux)
+   hostname	:computer name
+   hostnamectl set-<h.n> : change host name
+   arch
+
+10. env	: environment path
+11. echo	: print
+	// echo -e <s1> "\n"<s2>	: line change
+	// echo -n <s1>		: prompt print
+12. which		: operator 위치 찾을때
+13. finger		: user 계정 상태
+	// operator 설치후 사용하면 ok
+14. whatis
+15. sleep
+16. source
+	// ls -a : bash (설정파일) / logout 안하고 환경변수 설정할 때 , 바로 적용 가능
+

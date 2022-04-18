@@ -1,0 +1,247 @@
+# File & Directory
+
+desktop env : notilus app 사용 가능 but text env-terminal env 에서도 관리 가능해야함
+
+1. linux file structure
+	* I-node
+
+2. linux File
+	terminal : ls -l
+		// > drwxr : directory file
+
+	a. dir 확인
+	* ls: directory list / pwd : 현 directory 위치(print w? dir) / cd: directory 이동(default: home dir .. root.home(X))
+		// 절대경로 : cd / < 로 시작
+		   상대경로 : . (내 dir) .. (상위 dir)
+	* cd
+		cd	: my directory
+		cd -	: 직전 작업하던 directory
+		cd ~	: cd ~user01 > user01 home dir
+	*ls
+		ls	: file, dir 세로로 보여줌
+		ls -x	: 가로로
+		ls -a	: 현 dir, 상위 dir info 모두 보여줌 + hidden file / dir
+				. : 현재 / .. : 상위
+		ls -l -i == ls -li	: -i > I-node info
+			** stat : 더 자세한 I-node info 
+		ls -F
+		ls -ld net* : net~ dir 만 볼수 있음 (wildcard)	
+				* passwd? : 뒤에 무조건 한문자 / passwd* : 뒤에 있든지말든지 / net[p-w]* : 범위 지정
+				* ls -l : ~ 하위 dir 표시 
+				 <> ls -l -d : 현 dir만 표시 
+				 <> ls -R : all dir 표시
+				* -t : 시간순 / -r : 역순(reverse) 
+		ls -R 	: 현 dir ~ subdir 모두 출력
+	b. dir 생성
+	*mkdir : dir생성
+		mkdir -p : sub dir 동시 생성 가능
+	*rmdir : dir 삭제
+		* file
+		 생성 : touch	// size: 0
+			 touch -t : 생성 시각 조작 가능...ㅋㅋ(touch -t 2212251030)
+		 삭제 : rm	// dir 내부 file 있을때 remove X
+		         rm -r	// dir 내부 내용 있을 때도 dir remove
+		         rm -rf (./)	// if file : read only : -r option 으로 remove X	// super user로 작업 ... 사고 가능.. > snapshot 필수
+		         rm -ri	// 삭제 시마다 물어봐
+
+	
+3. I-node
+	*stat
+
+* shell : linux os-user 서로 access
+	linux ununto default shell = bash ?
+* linux : 대소문자 구분 필수
+* super user > sudo -i		..
+
+4. su :	su - user1 : user1 전환 > exit > logout
+   sudo : 	sudo -i // super user 전환
+
+
+5. File copy
+	* cp test1 test2	// test1 > test2 copy
+	* cp test1 test2 testdir	// testdir 에 test1 test2 copy
+
+6. file
+	* file : file info
+
+7. cat
+	* cat : text file open	
+	* -n : index 더해서 출력
+
+8. head : 상위 명어 10 줄 print
+	* head -n X : 상위 n 개 제한 출력
+
+9. tail : 하위 명령어 print
+	* tail -f : file 변경사항만 출력		.. 변경 : file 하단 추가
+
+10. more
+11. less
+
+12. whereis	.. which 와 비슷 but 더 자세하게 보여줌
+
+13. rm
+	rm * : 모두 remove
+
+14. mv : file 이동
+	mv test.txt test001.txt	// file name change
+	mv test.txt testdir		// file move to testdir
+	mv dir1 dir2		// dir name change to dir2
+
+15. wc : (word count)
+	
+16. find : 전체 dir에서 file 찾을때 operator	***(중요하고 개어려움;;)
+           >  (sudo) find /etc -name services
+	
+	* find /etc -name services -ls	: more details show (-ls option)
+	* find / -uid 1001-print	.. pause : ctrl^C
+	* find / -size +30000k	.. 30MB 이상 file 만 출력
+		// default : root sub folder/dir print
+	* find / -perm -4000 -print
+	* sudo find /etc -name services -exec file {} \; -exec wc{} \;
+		// etc..services file exec(실행)> {} input , 	wc:count 
+		* sudo find /etc -name services -exec file {} \; -exec wc{} \;; ls
+			// linux : ; (한 명령).. 명령 분리해서 여러 동작(last ;)
+			// find : \; 명령분리 X & just -exec operator 종단점	.. \(escaping)
+		* sudo find /etc -name services
+			> return 1	.. {}\;
+			> return 2	.. {}\;	// like loop 처럼 동작 line 단위로 동작함
+	.. find option too many, deficult		..// man find study..
+
+17. grep : 찾고자 하는 String find
+	> grep PATTERNS <FILE..>
+		* -n : line number
+		* 정규표현식 사용 가능
+			: grep -n 'e$' /etc/group	.. e로 끝나는 string file 찾아
+
+
+
+
+* 정규표현식
+
+* ls-l (file type)	// file 상세정보 출력
+	-	: 일반file
+	d	: directory file
+	l	: symbol link file	(ex : version관리 시.. shell pro  )			.. copy -s 
+	b	: block device	(ex : hardware ,harddisk)
+	c	: character device	(ex: keyboard,mouse,tty~(terminal))
+	s	: sockat?
+	p	: pipe?
+
+	
+		*symboly link
+			game(.exe).. link .. game_ver_1	// ln -s game1 game
+				         .. game_ver_2	// ln -sf game2 game (-f: link delete)
+				         .. game_ver_3
+	
+		*drwxr-xr-x 2	/ d : file type
+				/ 2 : file> 동일 file 수 dir > subdir 수
+				/ rwxr-xr-x : file 접근 권한	rwx rwx rwx (소유자/그룹/기타사용자)
+
+	** linux : .exe XX > 확장자 X
+		          > just 접근권한만 있음
+
+
+* I-node
+	nl
+
+* redirection
+	: A > File	
+		// (date && errorcommand) > redirection.txt
+		// return print 부분이 file 로 저장	(redirection == date)
+	: A n> File
+		// (date && errorcommand) 2> redirection.txt
+		// redirection == errorcommand
+		.. error file 만 따로 print	
+	: A &> File
+		// 
+	: A >> File
+		// A : 기존 redirecton file 에 추가
+
+* pipe
+  : ls result pipe 단위로 끊어서 보여줌
+	: more	// ls /etc/|more
+	: less
+	: ls -l /etc | grep magic
+
+* sokat file ?????	: find /run -type s -ls | less
+
+* chmod (접근권한)	// + : 실행권한 부여 - : 실행권한 뺏어ㅏ
+	rm myfifo
+	rm redirection.txt
+	ls
+	touch hello.txt
+	ls -l hello.txt		>> -rw-rw-r-- 1 uzzin uzzin 0 
+	
+	chmod u-w hello.txt
+	ls -l hello.txt		>>
+
+	* chmod a+x hello.txt	: all user 실행권한 부여
+	* chmod a=rwx hello.txt	: all user r/w/x 실행 권한 부여
+
+
+* 숫자 이용 접근권한
+	user(r/w/x : 4/2/1)+member(r/w/x : 4/2/1)+other(r/w/x : 4/2/1)
+
+	* default 접근권한	.. umask, umask -S
+		file:	-rw-rw-r--	// umask 0002
+		directory: drwxrwxr-x	// umask 6645	.. 기본적으로 umask directory 기준
+
+	** umask = 0000 // 첫번째 자리 : 특수 접근권한	> 4,2,1
+		ex : ls -l /usr/bin/passwd > -rwsr-xr-x .. s: 특수 접근권한 (super user)
+
+		- set uid		//4
+		- set gid		//2
+		- sticky bit : all user 해당 dir 사용 but 생성한 user만 dir삭제 가능 (ex 임시파일, temper)	//1
+
+
+* 소유권 변경
+  chown	: user + group 모두 변경
+  chgrp	: group 권한 변경
+
+
+
+----------------------------------
+(보현)
+
+슈퍼유저에서 변경
+chown kang workspace
+chown -R kang workspace : 하위파일까지 권한변경
+chgrp kang workspace
+chgrp -R kang workspace : 하위파일까지 그룹변경
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* linux root 구조 check
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
