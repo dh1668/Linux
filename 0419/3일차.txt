@@ -1,0 +1,388 @@
+2일차 복습
+1. sudo apt : 일회용 최고슈퍼유저 권한
+
+2. su 	: sub stream user
+
+3.man 	: man 5  > 5페이지
+
+4.	logname	한사람
+	whoami	 
+	id
+
+5.	users	여러사람
+	who
+	w 
+
+6.	uname
+	hostname
+	arch
+
+7.	env 환경변수
+	echo	print 같은효과
+	
+
+8.	which	위치알려주는거 간략하게
+	whereis	자세하게
+	
+9.	date
+	cal	파일 안의 정보 호출 	-n은 line number 
+	finger 	사용자정보알려주는거
+	sleep	잠깐 멈춰야하는경우
+	clear	화면정리
+	source
+
+10.	pwd	현재위치확인
+	cd
+	ls	현재위치에서 하위디렉토리확인
+
+11.	용량 자세하게보는거 stat
+
+12.	mkdir
+	rmdir
+	rm -r
+
+13.	 touch
+	cp
+	mv
+	rm
+	ln
+
+14.	cat		
+	head	상위10줄
+	tail	하위10줄
+	more	
+	less	-N써서
+	
+
+15.	find
+	grep
+	wc	단어갯수 카운트
+		
+--------------------------------------------------------------------------------------
+3일차 시작
+
+1. 바둑판 > 텍스트편집기	2. (터미널에서 gedit &) =>치면 실행된다
+	cd에서	cat -n mylife.txt
+
+2.터미널에서 nano mylife.txt
+	ctrl + o 하고 이름수정후 엔터후 ctrl + x해서 끄기
+
+-----------------------------------------------------------------------------
+3.	vi		visual editor	편집기
+	vim		ex) sudo apt install vim 다운확인 or 설치
+	
+vi란	각종 문서를 편집할 우 있는 텍스트 기반 데이터
+	리눅스 뿐만 아니라 유닉스 계열의 모든 운영체제에서 사용
+
+
+	명령모드, 입력모드, 라인모드 	<사진 에디터작업모드>
+	-1	명령>입력	검색 및 편집에서 	a , i	돌아오려면 esc
+	esc를 굉장히 많이누른다
+
+	-2	vi치면 a,i누르면 입력모드임  <명령모드는 움직일수잇음 >
+		< a,i누르고 입력 >
+	
+		vi나가는방법
+	:q! 	강제종료 <저장안돼고>
+	:wq	저장하고 나가는거
+	:q	저장이 되어있을때만 쓰는거
+	:w	저장만 하고 나가지않는거
+
+	
+	vi로 텍스트편집기 내용 부르는방법 :	1.텍스트가 있는 공간에서 vi mylife.txt
+			
+	2.텍스트가 있는 공간에서	vi sample_vi.txt	vi에서 텍스트제목있는걸로생성하면서 vi 열기
+
+	cat -n sample_vi.txt	vi 안의 텍스트 내용불러오기
+
+
+
+	터미넬에서	vimtutor.txtp 엔터	=>빔 길잡이 안내문
+
+	w vimtutor.txt 엔터후 <저장후	 :q로 나오기
+	
+	
+
+	-3	명령모드 명령어 <소문자 단위로하는게 좋음> CAPS 함부로 누르지말기
+
+
+		명령모드에서 움직이기
+		소문자 j 아래 	k 위	h 왼쪽	l은 오른쪽
+
+		 :set nu		빔 길잡이	라인넘버
+		
+		ctrl F 	앞으로 페이지넘기기
+		ctrl B 	뒤로 페이지넘기기
+		ctrl D	 반페이지 앞으로 넘기기
+		clrl U 	반페이지 뒤로 넘기기
+		clrl Y 	위로 스크롤
+		clrl E 	아래로 스크롤
+		
+		
+		GG	맨위로 이동
+		SHIFT 	G 맨아래로 이동
+		숫자 쉬프트 G 	그 라인넘버로 이동
+		
+
+		SHIFT	$ 	 그라인에서 맨뒤로 이동
+		^ 	 그라인에서 맨앞으로 이동
+		0	 라인 제일 앞 (라인넘버 뒤)로 감
+
+
+		W 	라인에서	단어단위(앞)로 넘어감 
+		E	라인에서 	단어단위(맨뒤)로 넘어감
+		B 	라인에서 	단어단위로 돌아옴
+	
+		
+		:5 	5 라인넘버로 이동
+
+		DD	그라인 삭제
+		SHIFT D		커서 뒤의 라인내용 삭제
+		SHIFT U		방금삭제한 내용 복구
+		
+
+		YY (SHIFT Y) +	P	라인복사 후 붙여넣기
+		SHIFT P		내밑으로 붙여넣기
+
+		DD + P 		자르고 붙여넣기
+
+		3 SHIFT Y +P		3줄복사후 붙여넣기
+
+		7 SHIFT D + P		7줄 자르고 붙여넣기
+
+		D + SHIFT $ (SHIFT ^ )    P	커서 뒤에 자르고 붙여넣기
+		D + SHIFT G(SHIFT Y )  P	커서 밑으로 전부 자르고 붙여넣기
+
+		
+		U		모든명령취소후 원래대로 돌아가기 (CTRL +Z)효과
+		
+		
+
+		숫자 D (SHIFT + W) 	단어 삭제
+		ex) 2 D (SHIFT+ W)		2단어 고르고 
+		
+		:1,3d 		라인모드
+		첫번째줄에서 3번째줄까지 삭제
+		
+		:.,$d		커서에서부터 맨뒤까지 삭제	
+		
+		:%d		전부다삭제
+
+		5,7y  p		5번줄부터 7번줄까지 복사후 붙여넣기
+		
+
+
+		입령모드 명령어
+		i		그 문자 앞에서부터 입력
+		a		구 문자 뒤에서부터 입력
+		o		새로 한줄 생기고 시작 
+		s		커서위치 문자 없애고 입력시작
+	
+		
+		SHIFT I		라인 맨앞으로 이동 후 입력
+		SHIFT A		라인 맨뒤로 이동 후 입력
+		SHIFT O		커서 라인 밑으로 내린 후 입력 본인 새로 한줄 생기고 라인넘버뒤 입력시작
+		SHIFT S		커서 라인 아예 삭제후 라인넘버 뒤에서 입력시작
+		
+		숫자 s		2문자 삭제후 
+
+		R		커서 위치 문자만 변경하기 위해 입력시작
+		CW		?
+		
+		X		커서단어만 하나씩 삭제
+		X  이후 P		자르고 붙여넣기
+
+		dw		그냥 명령모드 삭제
+		<!= CW		삭제후 입력모드>
+		
+
+		:e!		그전 파일 그대로 돌아가는거임
+		
+		
+		/찾을단어	  엔터	그문자 그대로 찾아줌 (CTRL +F) 같은거임
+		n		문자 내려가면서 찾음
+		SHIFT N		문자 올라가면서 찾음
+		
+		?찾을단어   엔터	그문자 그대로 찾아줌(CTRL + F) 같은거임
+		n		문자 올라가면서 찾음
+		SHIFT N		문자 내려가면서 찾음
+
+
+
+
+----------------------------------------------------------------------
+	커서가 줄에 가있어야함	
+
+	:s/문자열1/문자열2/		커서가 있는줄만
+
+	:%s/문자열1/문자열2/	문서전체에서 문자열1을 문자열2로바꾼다
+		%s전체문장		ex) :s/길잡이에서/문서에서/
+	
+	:%s/문자열1/문자열2/g	문서전체에서 문자열1을 문자열로
+				ex) :%s/문자열1/문자열2
+
+	:1,$s/문자열1/문자열2/g
+
+	:1,100s/문자열1/문자열2/g	g는 여러개를 동시에 바꿔주는거
+
+	1,$s/문자열1/문자열2/gc	c는 물어보고 바꿔주는거
+				$ : 마지막줄	
+				s는 그냥 치환(=바꿔준다), 범위기도함
+
+	찾을단어에 SHIFT + *
+				
+	1,$s/vimtutor/빔튜터/g	한라인에서 
+
+				
+-----------------------------------------------------
+	1. 스냅샷 찍기
+
+	2. 스냅샷1 복권하기
+
+	
+	
+	sudo -i 1234해서 슈퍼유저들어가기
+	vi /etc/passwd
+	
+	x:1000:1000	< uid : gid 라는뜻  
+
+	사용자의 기본적인 쉘은 bash
+
+	:ql해서 나온뒤 터미널에 man 5 passwd 치기
+	=> passwd 설명나옴
+
+★	계정:패스워드:UID:GID:GECOS:디렉토리:쉘
+
+	-필드설명 보기
+	
+	vi /etc/passwd
+	
+	
+	vi /etc/shadow 
+	man 5 shadow	<설명
+	
+	exit 치기
+	
+----------------------
+1. useradd	사용자 설명
+	
+sudo -i 들어가서
+
+useradd user01
+tail /etc/passwd
+
+cd /home# ls
+
+ll
+
+
+2. passwd
+------------
+
+3.chsh
+
+4. chown -R user01:user01 hello.txt		-R은 하위디렉토리까지 
+				★chorp는  유저id:그룹id 이렇게못쓴다.
+
+
+----------------------------------------
+유저만들기 시작~
+1. sudo -i
+2. useradd user02
+3. passwd user02
+패스워드 설정
+4.su - user02   <<	루트에서 유저 접속하기
+5.chsh user03 엔터
+6. 비밀번호입력
+7./bin/bash
+8.su - user02
+9.exit
+----------------------------------------------
+
+5. userdel -r	디렉토리와 파일 같이 삭제
+
+	useradd -m user01
+
+	
+useradd -m -s /bin/bash -d /home/game user03
+tail /etc/passwd
+
+
+
+userdel -r user03
+
+!tail
+
+7. usermod -m(-n)		useradd만든거를 수정할때 쓰는거 옵션은 
+
+ 		ex)	 usermod -m -d /home/darksoul3 -l soul user01
+
+-m : 유저랑 디렉토리 동시생성
+-s : 위치나오게하는 설정옵션? 생성 <안만들면 $ 만 나옴>
+
+
+8. chage 		사용자계정변경	
+		ex)	chage -l user01
+
+
+문제
+useradd -m -d /work_06 master
+passwd master
+tail /etc/passwd
+cd /gome
+cd..
+ls -l
+
+
+문제답
+
+usermod -u 2003 master
+tail /etc/passwd
+usermod -m -d/ workspace_06 master
+tail /etc/passwd
+gerp master /etc/passwd
+usermod -l manager master
+grep manager /etc/passwd
+
+
+문제
+chage -E 2030/05/05 master
+chage -l master
+chage -M 30 master
+c
+
+
+grep에 관한거
+grep "/bin/bash" /etc/passwd | cut -d ':' -f1
+
+-------------------------------------------
+9.	adduser
+
+10.	deluser
+
+	deluser --remove-home user02 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,450 @@
+date --date '3 day ago' 3일전 날짜 확인  <기존날ㅈ>
+date --date '3 month 3 day'  3개월 3일뒤 날짜확인
+
+date --help | more 
+
+명령어
+date  		날짜확인
+timedatectl 	날짜 조정
+clear		터미널 정리
+set
+timedatectl set-ntp false(혹은 true)
+
+history
+!숫자 :		그명령어 실행
+history -d 숫자 	그명령어 삭제
+!!		최근명령어 실행
+!da		짧게쓰고 날짜확인
+
+
+man man		메뉴얼페이지
+man ls
+ls - 	<< 	마이너스줘서 명령어 부여
+git switch 또는 branch  <<기존 명령어 git에 서브커맨더 주는거
+man -fdisk	관리자모드일때  실행해야함
+
+sudo -i 		<관리자모드
+
+man 1 ls		일반모드일때 실행가능
+
+man passwd	일반모드일때 실행가능
+man 5 passwd	일반모드일때 설명해주는거임
+
+man -f ls		간략하게 설명   = whatis lf
+
+-----------------------------------------------------------
+logname		로그인한사람 확인하는거
+whoami		내아이디가 누구냐고
+id		
+
+su -user01 	다른아이디로 대체한거임
+★logname은	최초들어간아이디로 답이나옴
+★whoami는	지금 접속해있는아이디		
+
+exit		그아이디 로그아웃임 = logout도 가능
+
+-------------------------------------------------
+user		유저에 대한 정보확인
+who		대상이 어디서 들어온지 까지 확인할 수 있음.
+w
+
+
+ctrl alt f6 눌러서 입력한 아이디 다확인가능 << users로
+
+who -q  		사용자수확인
+who -w		위와같음
+who -H		이름 행 이런거 나오지만 별로 안중요함
+who -a 		자세하게 정보 알려줄수있음
+who -b		언제부팅했는지 정보가 나옴
+
+
+w는		더 자세하게 나옴
+- JCPU라는 거는 cpu사용시간
+- PCPU는 사용하는시간동안 얼마나 사용했냐 라는뜻
+
+
+-------------------------------------------------------
+cal		달력
+cal2022		2022년 전체달력
+cal 4 2022 	2022년 4월꺼만
+cal -j		365일중 365사이의 당일 일수
+
+clear 		ctrl + L + P 	지우기
+
+
+
+uname
+uname -a		시스템 정보보는거
+hostname	컴퓨터 이름보는거
+hostnamectl set-hostname orange 	orange로 이름 바꾸는거
+
+arch
+
+-----------------------------------------
+env 		환경변수
+export TEST/=/=/
+
+
+echo		print랑 같은 출력명령어
+		-n : 다음명령어 타이핑 줄과 같이나옴
+		"\n" : 엔터되서 출력되어 나옴
+------------------------------------------------------------------------------
+which ls		어디에 저장되어 있는지 확인할때 쓰는 용어
+ex) 	which ls , which fdisk
+
+
+finger		
+ex) finger user01 이렇게 대상
+
+write 보낼아이디 하고 엔터 치고 메세지 보내기 	: 터미널간에서 메세지보내는용도
+거의 안씀
+
+
+whatis ls 		어디있는지확인
+
+sleep 30		30초 멈추는거
+
+
+sourcel
+source bashrc 	로그아웃안하고 환경변수 같은거 설정할때 쓰는거임
+
+----------------------------------------------------------------------
+/dev$		디바이스 확인하는명령어
+/dev$ cd
+
+echo Hello > /dev /tty4 	터미널 4에 있는 것의 디바이스 내부 확인
+
+ls		지금위치에서 하위 디렉토리 확인하는거임
+
+ls -l 		자세하게나옴
+맨앞이 문장이 d가 나온건 디렉토리파일 , - 는 일반파일
+
+
+
+pwd		현재나의 디렉토리 확인하는거임
+
+cd		홈디렉토리로 이동
+
+cd . 		내 안에 있는 디렉토리로이동(서브디렉토리 이동)
+cd ../../usr	상위 경로로 이동
+
+
+cd /home/user02	상대경로로 가는~
+cd - 		좀전의 디렉토리로 이동
+~/ 
+
+
+
+●현재 root디렉터리의 하위에 있는 log 디렉터리로 이동시 명령어방법
+
+1.	cd log
+2.	cd ./log
+3.	cd log/
+4.	cd./log/
+5.	cd /root/log
+
+	cd log/아빠/엄마
+
+
+/etc $
+
+
+.은 자기하위 서브디렉토리
+..은 상위 디렉토리, 파일
+
+파란색은 숨겨진디렉토리
+흰색은 파일
+
+ls -i 	i -node를 보기위해 쓰는거(inode는 숫자로 표시됨)
+ls -li 이렇게 붙일수있음
+ls -F 	디렉토리 뒤에 / 로표시하게만드는 명령어
+ls -ld net* 	net만 시작한걸로만 볼수잇음
+(?는 한문자를 표시하는거임)
+ls -ld net[p-w]*	net에서 p에서 w까지
+
+ls -l -d net* 	하위net에서만 들어가라는거임
+ls -R		하위디렉토리 전부보여주는거임
+ls -lt 		시간순서대로보여줌
+ls -ltr		시간역순
+
+★★★모르면 절대안돼는거임 <리눅스는 대문자,소문자 구분 해야함>
+ls	
+-l	하위 디렉토리 정보보여주는거임
+-d	뒤에 지정한 디렉토리만 나오게해주는거임
+-x	:가로로출력 <기존리눅스는 세로로출력임>
+-R	하위디렉토리 전부보여주는거임
+-t	시간순
+-r 	시간역순
+
+-------------------------------
+stat test.txt < 이런식으로 자세하게 볼수잇음 (ls -li)보다 더 자세하게볼수 있음
+
+
+쉘은 명령어를내리기위해서 주고받기위한 환경
+우분투에서 제공하는 건 대쉬  => 즉 우린지금 우분투 대쉬 라는곳에서 제공받는거임
+
+
+--------------------------------
+디렉토리 만드는 명령어★
+mkdir 	생성		mkdir testdir   : test 디렉토리 만든거임
+rmdir	 삭제		rmdir testdir	
+-p 디렉토리/디렉토리 : 한번에 만드는거
+
+touch	파일생성		touch test01.txt	파일생성
+			rm test01.txt	파일삭제
+		- 파일이 있을경우 rmdir 이 안됀다.
+
+★
+rm -r testdir/ 	쉽게 지우는방법 <굳이 디렉토리안들어가고 파일지우기>
+
+rmdir testdir? 뒤에숫자붙은거 다지워짐
+
+
+touch -t 2212251030 test.txt     /.	시간조정 할
+rm -rf ./testdir/ 	이런식으로하면 강제 삭제<read파일이런거 삭제안되는것도 가능
+
+
+
+하위로 들어가기
+cd d_mark01
+
+하위에서 상위cd로 올라가기
+cd ../ d_mark02
+
+---------------------
+cp		복사
+cp -b 		백업해놓는거
+cp -v 		덮어쓰기
+cp -r 		디렉토리 복사
+
+- 는 심벌릭
+
+
+
+file		파일 type 확인하는것
+
+
+cat -n services	파일내용 보기
+
+
+head		10줄만 표시하는거
+ex) head services 	,	 head 2 services 2줄만표시
+
+
+
+
+tail services	뒤의 디렉토리 
+ex) tail services 	,	 tail 2 services
+
+
+
+
+more		cat보다 광범위한 파일내용을 일일이 스페이스누르면서 확인
+ex)more services
+
+
+
+
+less 		more랑 비슷함
+ex) less -n services , 	less services
+
+
+
+
+whereis 		which 보다 더 정확하게 여러위치를 알려줌
+ex)whereis ls	
+
+
+
+-----------------------------------
+rm * 		다지워짐
+
+rm -r		현재 위치에서 지우기
+rm -rf 		무조건 지우기
+rm -ri		물어가면서 지우기
+
+
+mv 		파일 이동 , 이름 바꾸기
+
+
+
+wc		문자수 확인
+
+
+
+---------------------------
+find 
+ex)
+	
+find/etc -name services 	찾고자하는 디렉토리 기본적인 명령
+허가거부시 맨앞에 sudo 쓰기
+
+find /etc -name services -ls 	더자세하게 찾고하는 정보의 내용까지 나오는 명령
+
+find / -uid 1001 -print	 출력옵션
+
+find / -size +30000k 
+
+find / -size +30000k -ls
+
+find / -perm -4000 -print
+
+find / -perm -4000 -ls
+
+sudo find /etc -name services -exec file {} \; -exec wc {} \;
+--끼워 넣기--
+ 
+★
+리눅스에선 ;(세미콜론)이 한가지줄에서 2가지명령을 실행하라는뜻
+
+
+
+grep PATTERNS [FILE...] 	입력으로 전달된 파일의 내용에서 특정 문자열을 찾고자할 때 사용하는 명령어입니다. 리눅스에서 가장 많이 사용되는 명령어 중 하나이죠.
+ex)
+grep dh1668 /etc/passwd /etc/group
+
+grep -h dh1668 /etc/passwd /etc/group	 파일명 출력 x
+
+grep -n dh1668 /etc/passwd /etc/group	라인명
+	
+grep -n 'e$' /etc/group			정기표식만 나오게
+
+
+tail -f /var/log/
+
+
+
+파일타입 맨앞글자
+-		심벌릭
+d		디렉토리
+l		심벌릭
+b		블록디바이스
+c		charactor형 디바이스 
+s		스캣
+p		파입
+
+
+
+
+
+etc에는 주로 설정파일들이 있음
+
+ls -l로보면
+ln -sf game3 game  : game > game3이렇게 표시됌
+
+
+-----------------------------------------
+
+다른파일이 같은 노드를 가르키게하는것이 바로' 하드링크'
+
+하드링크는 디렉토리에없음
+
+
+ex) ln test.txt test1.txt
+ls -li test1.txt 
+
+---------------------------------------
+redirection
+
+A > File : >는 명령집어넣는거임
+(date && errorcommand) > redirection.txt 
+A n> File : 에러파일넣을때 쓴다
+
+A &> File : 
+
+A >> File :  	기존파일에다가 추가하는거
+
+
+
+-----------------------
+pipe
+ex)
+ls -l \etc | more
+ls -l \etc | less		뒤로못감
+ls -l \etc | less -N
+ls -l \etc | grep magic
+
+mkfifo myfifo		
+------------------------
+find /run -type s -ls | less 
+
+
+
+
+---------------------------
+rw-	    rw-		r--
+파일소유자 /그룹  / 기타사용자에 관한 권한
+
+r :	읽기
+w :	쓰기
+x :	실행
+
+
+
+리눅스에선 확장자라는개념없음
+실행권한 줘야 설정가능함
+.py 준다해도 접근권한주는것은아님 
+
+
+
+접근권한 명령어
+chmod
+
+
+chmod u-w hello.txt : 소유자 쓰는기능 상실하게만듬
+
+chmod g-w hello.txt : 그룹에 쓰는기능 상실
+
+chmod o+w hello.txt : 기타사용자가 쓰는 기능 추가 
+
+a = rwx   => 소유자, 그룹, 기타사용자 = rwx
+
+chmod a=rwx hello.txt : 모두에게 다 쓰고 읽고 실행하는 기능 추가
+
+
+
+-
+소유자 권한 0~ 700 8진수
+그룹 	   0~ 070 
+
+실행권한 주는게 
+chmod 555 hello.txt
+chmod 575 hello.txt
+
+4 2 1 이렇게 읽는거임
+
+
+
+
+
+
+umask -S
+거꾸로 뺀다는개념 chmod가 666이었다면 111 으로 설정하면 rw-rw-rw로 되는거임
+
+
+umask 앞의 첫번째 숫자는 4,2,1 만 들어갈수잇음
+
+
+특수권한
+ls -l /usr/bin/passwd
+
+
+
+
+chown		소유권자 이름 쓴사람한테 권한주기
+chown	dh1668 workspace
+
+
+
+
+chgrp		그룹 한테 권한주기
+ex)
+chgrp -R user workspace/
+
+
+
+chown -R user02:user02 workspace
+
+
+ls --help | grep sybolic
+
