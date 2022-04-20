@@ -1,0 +1,75 @@
+fdisk -l
+외장기기 관리하는 명령어
+
+
+
+fdisk /dev/sdb
+
+mkfs.ext3 /edv/sdb1
+mkfs.ext3 /edv/sdb2
+mkdir /mnt/disk1
+mkdir /mnt/disk2
+mount /dev/sdb1 /mnt/disk1
+mount /dev/sdb1 /mnt/disk2
+
+
+
+
+
+
+
+
+
+fdisk			
+m
+t
+l
+fd
+p
+w
+y
+
+/dev/sdb~sdj > n >엔터3~4번 >t > fd >w 반복
+
+clear 이후 밑에꺼 시작
+
+apt install mdadm
+
+---------------------------
+mdadm --create /dev/md9 --level=linear --raid-devices=2 /dev/sdb1 /dev/sdc1
+mdadm --detail --scan	<확인하는거
+mkfs.ext4 /dev/md9
+mkdir /mnt/raidlinear
+mount /dev/md9 /mnt/raidlinear
+
+
+mdadm --create /dev/md0 --level=0 --raid-devices=2 /dev/sdd1 /dev/sde1
+mkfs.ext4 /dev/md0
+mkdir /mnt/raid0
+mount /dev/md0 /mnt/raid0
+df
+
+
+mdadm --create /dev/md1 --level=1 --raid-devices=2 /dev/sdf1 /dev/sdg1
+
+
+
+
+강사님 vi /etc/fstab
+
+/dev/md/orange:0   /mnt/raid   	ext4	defaults	0	0
+/dev/md/orange:1   /mnt/raid   	ext4	defaults	0	0
+/dev/md/orange:5   /mnt/raid   	ext4	defaults	0	0
+/dev/md/orange:9   /mnt/raidlinear    ext4	defaults	0	0
+/dev/sdk1	 /mnt/disk1	vfat	defaults	0	0
+/dev/sdk2	 /mnt/disk2	ext3	defaults	0	0
+/dev/sdk3	 /mnt/disk3	ext4	defaults	0	0
+
+----------------------------
+sudo mkdir /mnt/share
+sudo mount -t vboxsf share /mnt/share
+cd /mnt/share/
+ls
+sudo touch redme.txt
+
+
