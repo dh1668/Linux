@@ -1,0 +1,583 @@
+fdisk 외장기기 관리 명령어
+
+lsblk -f 기기 보는거
+
+마운트 : usb 합치기
+u마운트 : usb 해체
+
+mount 합칠기기 꽂을구멍
+
+레이드 :여러개의 디스크를 한개처럼 쓰기위한 용도 ? 방법? 
+
+레이드 linear 일자로 그대로 쓰기
+레이드 0		동시에 시간단축하는거
+레이드 1		반반 나눠서 쓰는거 = 한개디스크 작살나도 저장되어 있기때문에
+		안전성 좋음
+레이드 5		3개이상 디스크로 쓰는거임
+
+
+파티션 : 방만들거 구분
+
+------------------------------------------------------------------------------------------------
+LVM 과 RAID는 비슷해보이지만 다름
+
+LVM은 용량이 다른거 끼리 합쳐서 사용하는거 ex)6T +2T +1T+ 1T = 10T
+
+RAID는 같은 용량의 디스크 끼리합치는거 ex) 5T + 5T =10T
+
+
+
+
+
+
+
+<웹 개발> 기본소양
+HTML 
+CSS
+JAVASCRIPT
+BootStrap = 디자이너 없이 하는경우
+
+<FRONT>으로 파생
+J QUERY
+REACT(싱글애플리케이션) - 웹페이지기반
+VUE
+ANGLER
+JAVASCRIPT
+
+
+<BACK>으로 파생
+SPRING
+JAVA
+DJANGO
+SQL
+NODJS <EXPRESS>
+
+CRORLING => 데이터 분석해서 가져올 수 있게 만드는 기초
+↓업그레이드
+Hadoop => 데이터 분석
+=>Word Count 중요
+
+SPARK
+=> 자바로 기반해서 쓰는 조금쉬운 인터페이스
+
+
+------------------------------------------------------------------------------------
+RAID 1 ,5 번만 살릴수잇음
+Raid 5는 2개이상디스크 망가지면 복구불가능
+
+sudo -i
+vi /etc/fstab
+# 맨앞 설정
+
+mdadm --detail --scan
+mdadm --run /dev/md127    레이드 동작하게 만드는 행동
+df 로확인
+mount /dev/md127 /mnt/raid1 레이드 동작하게한뒤 마운트하는것 
+
+확인하는것
+1.	mdadm --detail /dev/md127      =3. 번이랑 같은거임
+2.	mdadm --detail --scan
+3.	mdadm --detail /dev/md/orange\: 1이나 5 세세히 면밀히 보는거
+
+
+
+
+동작안하는거 해보려고 하지만 동작안된다고 나옴
+mdadm --run/dev/md124
+mdadm --run/dev/md126
+
+
+
+동작안하는거 삭제  ★정말 중요하니 미리 detail scan으로 확인해서  inactive 꺼 확인하고
+mdadm --stop /dev/md124
+mdadm --stop /dev/md126
+
+
+cd /mnt/raid5
+ls 해서 lost+found 확인하기
+
+cd /mnt/raid1
+ls 해서 lost+found 확인하기
+
+poweroff 해서 나가기
+
+버추얼박스들가서 저장소들어가기
+3a , 5a, 7a, 9a만들고 추가하기 / 기존 망가진거 넣으면안됌
+포트넘버 7번인것만 8번으로 바꾸면된다.
+다시 시작
+
+터미널키고
+파티션만들기
+mdadm --detail --scan
+lsblk -f
+fdisk /dev/sdc(	sdc , sde ,sdg,sdi )
+n누르고
+엔터4번
+t누르고
+fd누르고
+w누르기
+
+
+mdadm --detail --scan
+
+레이드 지우기
+mdadm --stop /dev/md125(127)
+
+레이드생성
+mdadm --create /dev/md9 --level=linear --raid-devices=2 /dev/sdb1 /dev/sdc1
+mdadm --create /dev/md0 --level=0 --raid-devices=2 /dev/sdd1 /dev/sde1
+mdadm /만들raid경로 / raid숫자/ raid구성디스크갯수/ 재료디스크들경로
+
+마운트대신 쓰는거 <레이드에 디스크추가한다는뜻 > = >>> 편함
+mdadm /dev/md/orange:\1 --add /dev/sdg1
+mdadm /dev/md/orange:\5 --add /dev/sdi1
+=> 파티션을 먼저만들고하는거임 즉 , mkfs 안써도됨
+
+vi /etc/fstab 들어가서 맨앞에 #만 없애기
+=>u마운트돼서 노가다하기시러서
+(=디폴트값으로 설정한다고 생각하면됌)
+
+? 뭔가잘못됌
+--------------------------------------------------------
+포터 :  사용자마다 작업용량설정
+ 
+
+apt 다운받아서 뭘햇음 첫날에
+
+패키지관리하기 위한 명령어
+패키지
+구글웹브라저 설치 했을때    => .db 한것 
+
+package
+
+
+depackage
+
+
+-------------------------------
+sudo dpkg -i google		슈퍼유저신분으로 다운 받아주고 자동적으로 로그아웃
+dpkg -i galculator.deb		dpkg 다운받을때
+dpkg -r galculator
+dpkg -P galculator		
+dpkg -l				dpkg 찾을때 
+dpkg -L vim
+
+apt-get update		업데이트
+apt-get upgrade		업그레이드
+
+apt-cache		구식된거임
+
+
+apt		만써도됨 <좀더 좋은거 세련된 업그레이드?>
+
+apt update	패키지업데이트
+apt upgrade	패키지업그레이드
+
+apt list		
+
+apt --help에 한글로친히나옴
+
+apt full-upgrade 패키지 전체 삭제 설치 업글 시스템업글
+apt install vim
+apt remove vim	삭제
+apt pruge vim	패키지 설정파일까지 다삭제
+
+
+------------------------------------------------------------------------------
+geniosimage
+	-r	8글자 이상 파일이름 지정할때
+	-j	윈도우에서 64bit 유니코드 이름 허용
+	-o	출력할 파일이름
+
+pdkg -l genisoimage
+
+
+1.	genisoimage -r -J -o my_test.iso /boot
+
+ls - lh
+
+	/boot$ cd
+	ls
+2.	sudo mkdir /media/isodir	CD롬 리눅스에 장착
+3.	1234
+
+
+4.	sudo mount -o loop my_test.iso /media/isodir	파일을 하나의 이미지같이인식하게하는거
+5.	ls -l /media/isodir/
+
+------------------------------------------------------------------------------
+파일 압축 및 해제
+	리눅스는 하나의 파일만 압축하고  해제하는거임
+
+
+xz services
+cp /etc/services .
+
+
+xz FILE
+xz -d FILE.xz 	해제
+xz -l FILE.xz	압축한 파일의정보
+xz -k FILE.xz	압축도 하고 파일명안사라지고 
+
+bzip2 FILE
+bzip2 -d FILE.bz2
+bzip2 -k FILE
+
+
+gzip FILE
+gzip. -d FILE.gz
+
+
+zip CMPFILE.zip FILE	
+unzip CMPFILE.zip		unzip 파일명.zip 푼다
+
+
+
+
+파일 묶기 및 풀기
+
+tar cvf my.tar services protocol	c는묶겟다 v행동을표시	f파일네임
+tar tvf my.tar			리스트 뽑아주는거
+tar xvf my.tar			파일 풀겟다.
+tar xvf my.tar -C ~/Documnets	my.tar를 document에 풀겟다.
+
+
+tar Jcvf my.tar.xz ~/etc	etc디렉토리를 묶고 my.tar.xz에 압측
+tar zcvf my.tar.gz ~/etc	etc디렉토리를 묶고 my.tar.gz에 압축
+tar jcvf my.tar.bz2 ~/etc	etc디렉토리를 묶고 my.tar.bz2에 압축
+		
+----------------------------------------------------------------------------------------------
+프로세스
+메모리에 로딩되면 프로세스되는거임
+
+ps 명령어
+
+ps --help
+
+ps -e
+ps -ef 	전체프로세스 확인
+ps -
+ps -	
+ps -	
+ps -	
+ps -	
+ps -	
+ps -	
+ps -	
+ps -	
+ps -
+
+top	작업관리자보는거 <q로 빠져나오는거임>
+kill -L	강제종료<9번> 시그널분해
+
+다른터미널에서 yes 누르고 다른터미널창에서 top로 확인해보기
+
+
+kill 18596 이런싟으로쓰면댐	하위호환 강제종료 ?
+kill -9 18602		좇돼는 강제종료
+
+이런식으로 쓰는거임 ↓
+jobs
+sleep 60
+ctrl z
+sleep120 &
+kill %2 		2번죽임
+fg %1 포그라운드
+bg %3 백그라운드
+
+
+
+
+잡설명  :
+
+1. 우리가 쓰고 있는 메모리는 실제로 다 가상임
+
+2.	PPID 	P 어쩌고에 잇는 ID
+	PID	사람에게 있는 ID
+-----------------------------------------------
+서비스를 배우는 이유
+데몬인데 서버의 역할을 하는거
+환경설정하고 반영하기위해
+
+명령어
+1.	systemctl		자기가 다루는거	시스템데몬이 모두 다루고 있음 => 유닛( ex) 시간 )을 다루는거임
+systemctl -t service
+
+2.	sudo apt install openssh-server
+
+	
+3.	systemctl -t service
+
+
+4.systemctl status ssh.service
+
+
+서비스종료 명령어
+systemctl sop ssh.service
+비번1234
+
+systemctl start 서비스명
+
+
+systemctl restart
+
+systemctl status
+
+systemctl reload
+
+systemctl enable 	시스템 부팅될때 	무조건 실행되는거
+
+systemctl disable	사용안되는거
+
+
+
+sysstemctl isolate multi-user.target => 잠시만 그 환경에서 설정하겠다 라고하는거임 
+>검은화면에서
+dh1668
+1234
+
+systemctl iso(tab) gr(tab)
+1234(비번)
+
+
+--------------------------------------------------------------
+ip a
+
+ssd	:	암호화된 원격 프로토콜
+
+바나나터미널에서
+ssh dh1668@ 192.168.0.120  <<<<<<	orange ip a치고확인후 쓰기
+yes 다쓰고
+1234 (비번)치기
+
+
+오렌지 터미널에서 w 쳐보면 바나나 들어왓다고 확인됌
+
+
+ssh 남이만들어준아이디@그사람의 ip
+yes
+1234
+
+넷사랑
+xshell
+
+
+
+바나나 터미널
+scp servicesw dh1668@192.168.0.120:
+1234
+
+원격으로 보내는 다른ip에 접속해서 보내는거임
+cp /etc/protocols
+sftp 192.168.0.120
+
+stfp> 이렇게나오면 put protocols(파일명임) =>있는 것들 만 보낼수있음
+
+
+-------------------------------------------------------------------
+cd /etc/netplan
+ls
+vi (tab)
+:q
+
+
+nmcli
+sudo apt install net-tools
+netstat -at
+
+
+nmcli g (g는 제너럴)
+
+명령어
+nmcli
+nmcli g[ eneral ]
+nmcli n[ etworking ]
+nmcli n off
+nmcli n
+nmcli n on
+nmcli
+nmcli d [ evice ]
+nmcli c [ onnection ]
+
+nmcli c show
+
+nmcli c down '유선 연결 1'
+nmcli c s '유선연결1'
+nmcli c up '유선 연결1'
+nmcli c
+nmcli c mod '유선 연결 1' \ ipv4.method auto
+
+nmcli c mod '유선 연결 1'  method manual \
+ipv4.addresses 192.168.0.190/24 ipv4.gateway 192.168.0.0 \
+ipv4.dns 168.126.63.1
+
+
+-----------------------
+포트
+
+netstat -at
+192.168.0.16:49719 	 49719는 포트번호임
+netstat -atn
+
+
+
+
+less /etc/services 치면 포트번호 정보 다나옴
+netstat -at
+ ----------------------------------------------------
+쉘 하기전에 먼저 커널
+
+커널이란?
+Linux 운영 체제(OS)의 주요 구성 요소이며 
+컴퓨터 하드웨어와 프로세스를 잇는 핵심 인터페이스
+
+
+커널의 기능
+1.메모리 관리: 메모리가 어디에서 무엇을 저장하는 데 얼마나 사용되는지를 추적합니다.
+
+2.프로세스 관리: 어느 프로세스가 중앙 처리 장치(CPU)를 언제 얼마나 오랫동안 사용할지를 결정합니다.
+
+3.장치 드라이버: 하드웨어와 프로세스 사이에서 중재자/인터프리터의 역할을 수행합니다.
+
+4.시스템 호출 및 보안: 프로세스의 서비스 요청을 수신합니다.
+
+
+
+쉘은
+커널과 사용자간의 다리역할
+
+alias
+\ls
+ls -a
+vi .bashrc
+
+ls -l
+env
+
+echo $HOME
+cd
+echo $
+echo $SHELL
+
+책 428페이지하고
+
+cat name.sh
+echo $?
+sh name.sh
+bash name.sh
+
+ls -l name.sh
+
+chmod a+x name.sh
+ls -l name.sh
+./name.sh 	: 현재디렉토리
+echo $PATH
+
+testval="Yes Sir"
+echo $testval
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
